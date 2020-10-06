@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% load static %}
+{% block meta %}
+<meta charset="utf-8" />
+<meta http-equiv="x-ua-compatible" content="ie=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+{% endblock %}
+{% block title %}{{ title }}{% endblock %}
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/foundation.css' %}" />
+<link rel="stylesheet" href="{% static 'css/app.css' %}" />
+{% endblock %}
+
+{% block content %}
+{% if prev >= 0 %}
+    <a href="/{{ prev }}/">prev</a>
+{% endif %}
+<a href="/{{ next }}/">next</a>
+<br>
+{{ body }}
+<hr>
+<div class="grid-container">
+    <div class="grid-x grid-margin-x small-up-2 medium-up-3">
+        {% for c in card %}
+        <div class="cell">
+            <div class="card">
+                {% if c.counter|divisibleby:"2" %}
+                <img src="{% static 'images/uranus.png' %}">
+                {% else %}
+                <img src="{% static 'images/saturn.png' %}">
+                {% endif %}
+                <div class="card-section">
+                    <h4>{{ c.cardTitle }}</h4>
+                    <h6>{{ c.subtitle }}</h6>
+                    <p>{{ c.info }}</p>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% block scripts %}
+<script src="{% static 'js/vendor.js' %}"></script>
+<script src="{% static 'js/foundation.js' %}"></script>
+<script src="{% static 'js/app.js' %}"></script>
+{% endblock %}
+{% endblock %})
