@@ -4,19 +4,34 @@
 
 {% block content %}
 <ul>
-    <div class="grid-container">
+    <div class="grid-container" style="color:white">
         <div class="grid-x grid-padding-x">
             {% for sugg in suggestions %}
             <div class ="large-4 medium-4 small-4 cell">
-                <li>{{ sugg.suggestion }}</li>
+                <li>{{ sugg.suggestion }} - {{ sugg.client}}
+                    <ul>
+                        {% for comm in sugg.comments %}
+                            <li>{{ comm.comment }} - {{ comm.client }}</li>
+                        {% endfor %}
+                    </ul>
+                </li>
             </div>
             {% endfor %}
         </div>
     </div>
 </ul>
+{{ comments }}
+{% if request.user.is_authenticated %}
 <form action="/" method="post">
 {% csrf_token %}
 {{ form }}
 <input type="submit" class="button" value="Add Suggestion"/>
 </form> 
+
+<form action="/" method="post">
+{% csrf_token %}
+{{ form }}
+<input type="submit" class="button" value="Add Comment"/>
+</form> 
+{% endif %}
 {% endblock %})

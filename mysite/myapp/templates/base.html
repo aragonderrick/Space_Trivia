@@ -10,9 +10,44 @@
         <link rel="stylesheet" href="{% static 'css/app.css' %}" />
         {% block css %}{% endblock %}
     </head>
-    <body style="color:white">
+    <body>
         <!--nav bar-->
-        {% block content %}{% endblock %}
+        <div class="top-bar">
+            <div class ="top-bar-left">
+                <ul class="dropdown menu" data-dropdown-menu>
+                    <li class="menu-text">Know Your Planets!</li>
+                    <li>
+                        {% if user.is_authenticated %}
+                            <a href="/logout/">Logout</a>
+                        {% else %}
+                            <a href="/login/">Login</a>
+                        {% endif %}
+                    </li>
+                    <!-- <li>
+                        <a href="#">One</a>
+                        <ul class = "menu vertical">
+                            <li><a href="#">One</a></li>
+                            <li><a href="#">Two</a></li>
+                            <li><a href="#">Three</a></li>
+                        </ul>
+                    </li> -->
+                </ul>
+            </div>
+            <div class ="top-bar-right">
+                <ul class="menu">
+                    <li>
+                        {% if user.is_authenticated %}
+                            Welcome Commander: {{ user.username }}
+                        {% else %}
+                            Welcome Guest
+                        {% endif %}
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div style="color:white">
+            {% block content %}{% endblock %}
+        </div>
         <script src="{% static 'js/vendor.js' %}"></script>
         <script src="{% static 'js/foundation.js' %}"></script>
         <script src="{% static 'js/app.js' %}"></script>
