@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block css %}
+<style>
+    .user-container {
+        background-color: #1779ba;
+        margin-left: 300px;
+        text-align: right;
+        color:white;
+        border-radius: 5px;
+    }
+    .container {
+        background-color: #e6e6e6;
+        margin-right: 300px;
+        color:black;
+        border-radius: 5px;
+    }
+    .user-header {
+        padding-right: 10px;
+    }
+    h4 {
+        padding-left: 10px;
+    }
+    p {
+        word-break: break-all;
+        white-space: normal;
+        padding: 10px;
+    }
+    span.time-right {
+        padding: 10px;
+    }
+
+</style>
+{% endblock %}
+{% block content %}
+<div class="grid-container">
+    <div class='grid-x grid-padding-x'>
+        <div class="large-8 medium-8 small-12 large-offset-2 medium-offset-2 cell">
+            <br>
+            <hr>
+            {% if message_name %}
+            <h5 class="text-center">Thanks {{ message_name }} we will respond shortly!</h4>
+            <hr>
+            <br>
+            {% else %}
+            <h4 class="text-center">Contact The Developer!</h3>
+            <h5 class="text-center">Please fill the form below and we will respond A.S.A.P</h4>
+            <p class="text-center">*required</p>
+            <hr>
+            <form action="{% url 'contact' %}" method="post">
+                {% csrf_token %}
+                <div class="row">
+                <label style="color: white;">email *
+                    <input type="email" name ="message-user-email" class="form-control mb-30" placeholder="Email">
+                </label>
+                </div>
+                <div class="row">
+                <label style="color: white;">Message *
+                    <textarea name="message" class="form-control mb-30" placeholder="Describe your needs" rows="3"></textarea>
+                </label>
+                </div>
+                <div class="contact-panel-actions">
+                    <button type="submit" style="border-radius: 5px;" class="button submit-button">Send</button>
+                </div>
+            </form>
+            <hr>
+            <br>
+            {% endif %}
+    </div>
+</div>
+{% endblock %}

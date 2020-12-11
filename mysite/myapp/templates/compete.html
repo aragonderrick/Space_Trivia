@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block content %}
+<div class="grid-container">
+    <div class='grid-x grid-padding-x'>
+        <div class="large-8 medium-8 small-12 large-offset-2 medium-offset-2 cell">
+            <br>
+            <hr>
+                <h4 class="text-center">Ready To Compete {{user.username}}?!</h3>
+                <h5 class="text-center">Please press the play button</h4>
+            <hr>
+            <br>
+                <a href="/game" style="border-radius: 5px;" class="button expanded">Play</a>
+                <a href="/leaderboard" style="border-radius: 5px;" class="secondary button expanded">Leaderboard</a>
+                <a data-open="exampleModal1"><button style="border-radius: 5px;" class="button expanded">How To Play</button></a>
+                <div class="reveal" id="exampleModal1" data-reveal>
+                  <h6>1. You will be presented with 5 random Astronomy related questions.</h6>
+                  <h6 class="text-center">- Scoring 100 points for each correct answer.</h6>
+                  <h6 class="text-center">- Scoring 0 points for each incorrect answer.</h6>
+                  <h6>2. If feel prepared for battle, click the Play button.</h6>
+                  <h6>3. Dont forget to check how you rank on the leaderboard!.</h6>
+                  <h6 class="text-center">Good Luck Commander!</h6>
+                  <button class="close-button" data-close aria-label="Close reveal" type="button">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+            <br>
+            <hr>
+        </div>
+    </div>
+</div>
+{% endblock %}

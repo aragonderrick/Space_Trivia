@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+{% load static %}
+{% block meta %}
+<meta charset="utf-8" />
+<meta http-equiv="x-ua-compatible" content="ie=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+{% endblock %}
+
+{% block title %}{{ title }}{% endblock %}
+{% block css %}<link rel="stylesheet" href="{% static 'css/prep.css' %}" />{% endblock %}
+
+{% block content %}
+<br>
+<hr>
+<div class="grid-container">
+    <div class='grid-x grid-padding-x'>
+        <div class="large-4 medium-4 small-12 large-offset-4 medium-offset-4 cell">
+            <div class="text-center">
+                <h5>Rules For Preparation:</h5>
+                <h6>The rules are simple:</h6>
+                <h6>1. Click and study quick facts about each of the nine planets.</h6>
+                <h6>2. Once you feel prepared for battle, click the Compete button.</h6>
+                <h6>3. You will have 5 questions to answer</h6>
+                <h6>    - Scoring 100 points for each correct answer.</h6>
+                <h6>Good Luck Commander!</h6>
+            </div>
+        </div>
+    </div>
+    <hr>
+    <br>
+    <div class="grid-x grid-margin-x small-up-2 medium-up-3">
+        <div class="cell">
+            <img  class="planet"  src="{% static 'images/mercury.png' %}" alt="retro"/>
+        </div>
+        <div class="cell">
+            <img  class="planet"  src="{% static 'images/venus.png' %}" alt="retro"/>
+        </div>
+        <div class="cell">
+            <img  class="planet"  src="{% static 'images/earth.png' %}" alt="retro"/>
+        </div>
+        <div class="cell">
+            <img  class="planet"  src="{% static 'images/mars.png' %}" alt="retro"/>
+        </div>
+        <div class="cell">
+            <img  class="planet"  src="{% static 'images/jupiter.png' %}" alt="retro"/>
+        </div>
+        <div class="cell">
+            <img  class="planet"  src="{% static 'images/saturn.png' %}" alt="retro"/>
+        </div>
+        <div class="cell">
+            <img  class="planet"  src="{% static 'images/uranus.png' %}" alt="retro"/>
+        <div class="cell">
+            <img  class="planet"  src="{% static 'images/neptune.png' %}" alt="retro"/>
+        </div>
+        <div class="cell">
+            <img  class="planet"  src="{% static 'images/pluto.png' %}" alt="retro"/>
+        </div>
+    </div>
+</div>
+<br>
+<hr>
+{% endblock %})
+
+{% block scripts %}
+<script src="{% static 'js/prep.js' %}"></script>
+{% endblock %}

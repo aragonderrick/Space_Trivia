@@ -1,0 +1,171 @@
+<!-- chat/templates/chat/room.html -->
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Briefing Room{% endblock %}
+
+{% block css %}
+<style>
+    .user-container {
+        background-color: #1779ba;
+        margin-left: 300px;
+        text-align: right;
+        color:white;
+        border-radius: 5px;
+    }
+    .container {
+        background-color: #e6e6e6;
+        margin-right: 300px;
+        color:black;
+        border-radius: 5px;
+    }
+    .user-header {
+        padding-right: 10px;
+    }
+    h4 {
+        padding-left: 10px;
+    }
+    p {
+        word-break: break-all;
+        white-space: normal;
+        padding: 10px;
+    }
+    span.time-right {
+        padding: 10px;
+    }
+
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="grid-container">
+    <div class='grid-x grid-padding-x'>
+        <div class="large-8 medium-8 small-12 large-offset-2 medium-offset-2 cell">
+            <br>
+            <hr>
+            <h4 class="text-center">Commander Briefing Room!</h3>
+            <h5 class="text-center">Please be respectful and do NOT share personal information!</h4>
+            <hr>
+            <br>
+            <body>
+                <input id="chat-message-input" type="text" />
+                <button id="chat-message-submit" style="color:white; border-radius: 5px;" class="button">Send</button>
+                <div id="chat-container">
+                    <div id="send-message-container">
+                        <a>{{ message.username }}</a>
+                    </div>
+                </div>
+            
+                {{ room_name|json_script:"room-name" }}
+                {{ username|json_script:"username" }}
+                {{ user_id|json_script:"user-id" }}
+                <script>
+                    const roomName = JSON.parse(document.getElementById('room-name').textContent);
+                    const userName = JSON.parse(document.getElementById('username').textContent);
+                    const userId = JSON.parse(document.getElementById('user-id').textContent);
+            
+                    const chatSocket = new WebSocket(
+                        'ws://'
+                        + window.location.host
+                        + '/ws/chat/'
+                        + roomName
+                        + '/'
+                    );
+            
+                    chatSocket.onmessage = function(e) {
+                        const data = JSON.parse(e.data);
+                        // document.querySelector('#chat-log').value += (data.message + '\n');
+                        // Time formatting
+                        // Original version: https://stackoverflow.com/a/14638191/9212446
+                        var months = ["Jan.", "Feb.", "Mar.", "Apr.", "May.", "Jun.", "Jul.", "Aug.", "Sep.", "Oct.", "Nov.", "Dec."];
+                        var days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+                        var d = new Date();
+                        var day = days[d.getDay()];
+                        var hr = d.getHours();
+                        var min = d.getMinutes();
+                        if (min < 10) {
+                            min = "0" + min;
+                        }
+                        var ampm = " a.m.";
+                        if (hr > 12) {
+                            hr -= 12;
+                            ampm = " p.m.";
+                        }
+                        var date = d.getDate();
+                        var month = months[d.getMonth()];
+                        var year = d.getFullYear();
+                        var time = month + " " + date + ", " + year + ", " + hr + ":" + min + " " + ampm;
+                        // End time formatting //
+                        var timestamp = document.createElement("span");
+                        timestamp.setAttribute("class", "time-right");
+                        // Create 'tree' where HTML will be appended on.
+                        var tree = document.createDocumentFragment();
+
+                        // Parent of header and paragraph.
+                        var div = document.createElement("div");
+            
+                        // Child of div.
+                        var h = document.createElement("h4");
+            
+                        // Child of div.
+                        var para = document.createElement("p");
+
+                        //space b/t chats
+                        var pad = document.createElement('br');
+            
+                        // If it's the user posting the message, format accordingly.
+                        if (data.user_id === userId) {
+                            div.setAttribute("class", "user-container");
+                            h.setAttribute("class", "user-header");
+                        }
+                        else { // Format if it's an incoming message.
+                            div.setAttribute("class", "container right-margin");
+                        }
+            
+                        // Create a text node for the header, paragraph and timestap
+                        // And append it to each of them.
+                        h.appendChild(document.createTextNode(data.username));
+                        para.appendChild(document.createTextNode(data.message));
+                        timestamp.appendChild(document.createTextNode(time));
+            
+                        // Append the header, paragraph and timestamp to the DIV.
+                        div.appendChild(h);
+                        div.appendChild(para);
+                        div.appendChild(timestamp);
+            
+                        // Finally, append the DIV to the tree and append to the chat container.
+                        tree.appendChild(div);
+                        tree.appendChild(pad);
+                        document.getElementById("chat-container").prepend(tree);
+            
+                    };
+            
+                    chatSocket.onclose = function(e) {
+                        console.error('Chat socket closed unexpectedly');
+                    };
+            
+                    document.querySelector('#chat-message-input').focus();
+                    document.querySelector('#chat-message-input').onkeyup = function(e) {
+                        if (e.keyCode === 13) {  // enter, return
+                            document.querySelector('#chat-message-submit').click();
+                        }
+                    };
+            
+                    document.querySelector('#chat-message-submit').onclick = function(e) {
+                        const messageInputDom = document.querySelector('#chat-message-input');
+                        const message = messageInputDom.value;
+                        chatSocket.send(JSON.stringify({
+                            'message': message,
+                            user_id: userId,
+                            username: userName,
+                        }));
+                        messageInputDom.value = '';
+                    };
+                </script>
+            </body>
+            <br>
+            <hr>
+        </div> 
+    </div>
+</div>
+{% endblock %}

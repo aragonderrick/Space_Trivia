@@ -1,6 +1,7 @@
 {% load static %}
 <!DOCTYPE html>
 <html class = "no-js" lang ="en">
+
     <head>
         <meta charset="utf-8" />
         <meta http-equiv="x-ua-compatible" content="ie=edge" />
@@ -10,47 +11,68 @@
         <link rel="stylesheet" href="{% static 'css/app.css' %}" />
         {% block css %}{% endblock %}
     </head>
+
     <body>
         <!--nav bar-->
-        <div class="top-bar">
-            <div class ="top-bar-left">
-                <ul class="dropdown menu" data-dropdown-menu>
-                    <li class="menu-text">Know Your Planets!</li>
-                    <li>
-                        {% if user.is_authenticated %}
-                            <a href="/logout/">Logout</a>
-                        {% else %}
-                            <a href="/login/">Login</a>
-                        {% endif %}
-                    </li>
-                    <!-- <li>
-                        <a href="#">One</a>
-                        <ul class = "menu vertical">
-                            <li><a href="#">One</a></li>
-                            <li><a href="#">Two</a></li>
-                            <li><a href="#">Three</a></li>
-                        </ul>
-                    </li> -->
+        <div class="top-bar" data-sticky data-options="marginTop:0;" style="width:100%" data-top-anchor="1">
+          <div class="top-bar-left">
+            <ul class="dropdown menu" data-dropdown-menu>
+              <li>
+                {% if user.is_authenticated %}
+                <a href="/"><li class="menu-text">Space Trivia</li></a>
+                {% else %}
+                <a href="/login/"><li class="menu-text">Space Trivia</li></a>
+                {% endif %}
+              </li>
+              <li class="menu-text">
+                <a>Pages</a>
+                <ul class="menu vertical">
+                  <li><a href="/">Compete</a></li>
+                  <li><a href="/leaderboard/">Leaderboard</a></li>
+                  <li><a href="/chat/briefing/">Chat Room</a></li>
                 </ul>
-            </div>
-            <div class ="top-bar-right">
-                <ul class="menu">
-                    <li>
-                        {% if user.is_authenticated %}
-                            Welcome Commander: {{ user.username }}
-                        {% else %}
-                            Welcome Guest
-                        {% endif %}
-                    </li>
-                </ul>
-            </div>
+              </li>
+              <a href="/contact/"><li class="menu-text">Contact</li></a>
+            </ul>
+          </div>
+          <div class="top-bar-right">
+            <ul class="menu">
+              {% if user.is_authenticated %}
+              <li class="menu-text">Welcome Commander: {{user.username}} </li>
+              <a href="/logout/" class="button" style="border-radius: 5px;">Logout</a>
+              {% else %}
+              <li class="menu-text">Welcome Guest</li>
+              <a href="/login/" class="button" style="border-radius: 5px;">Login</a>
+              {% endif %}
+            </ul>
+          </div>
         </div>
+        <!-- end nav bar -->
+
         <div style="color:white">
             {% block content %}{% endblock %}
         </div>
+
+        <!-- start footer -->
+        <!-- <footer class="social-footer">
+          <div class="social-footer-left">
+            <a href="#"><img class="logo" src="{% static 'images/rocket.png' %}" style="width:60px;height:60px;border:2.9px solid #2c2c2c";></a>
+          </div>
+          <div class="social-footer-icons">
+            <ul class="menu simple">
+              <li><a href="https://www.facebook.com/"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
+              <li><a href="https://www.instagram.com/?hl=en"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
+              <li><a href="https://www.pinterest.com/"><i class="fa fa-pinterest-p" aria-hidden="true"></i></a></li>
+              <li><a href="https://twitter.com/?lang=en"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
+            </ul>
+          </div>
+        </footer>         -->
+        <!-- end footer  -->
+        
         <script src="{% static 'js/vendor.js' %}"></script>
         <script src="{% static 'js/foundation.js' %}"></script>
         <script src="{% static 'js/app.js' %}"></script>
+        <script> $(document).foundation(); </script>
         {% block scripts %}{% endblock %}
     </body>
 </html>

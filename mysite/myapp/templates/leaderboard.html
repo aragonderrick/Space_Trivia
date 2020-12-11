@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block content %}
+<div class="grid-container">
+    <div class='grid-x grid-padding-x'>
+        <div class="large-8 medium-8 small-12 large-offset-2 medium-offset-2 cell">
+            <br>
+            <hr>
+            <h4 class="text-center">Commander Leaderboards!</h3>
+            <h5 class="text-center">Leaderboards will reset every week so be ready to shoot for the top 10 weekly!</h4>
+            <hr>
+            <br>
+            <div style="color:black">
+                <table class="table-expand">
+                    <thead>
+                        <tr class="table-expand-row">
+                            <th>Commander:</th>
+                            <th class="text-right" width="200">Points:</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for score in scores %}
+                        <tr class="table-expand-row" data-open-details>
+                            <td>{{ score.user.username }}</td>
+                            <td class="text-right">{{ score.points }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            <a href="/" style="border-radius: 5px;" class="button expanded">Compete</a>
+            <br>
+            <hr>
+        </div> 
+    </div>
+</div>
+{% endblock %}

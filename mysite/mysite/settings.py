@@ -26,7 +26,7 @@ SECRET_KEY = '%rie=6^xmiad#w_0n-5(st$1e^covdx_9cgg9b2u#&s=4esd5c'
 # Security Warning: dont run with debug turned on
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*', '10.0.0.72']
 
 LOGIN_REDIRECT_URL="/"
 LOGIN_URL="/login/"
@@ -34,6 +34,7 @@ LOGIN_URL="/login/"
 # Application definition
 
 INSTALLED_APPS = [
+    'chat',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -41,6 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'myapp',
+    'channels',
 ]
 
 MIDDLEWARE = [
@@ -72,7 +74,17 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'mysite.wsgi.application'
+ASGI_APPLICATION = "mysite.asgi.application"
 
+# Channels
+CHANNEL_LAYERS = {
+    'default': {
+        'BACKEND': 'channels_redis.core.RedisChannelLayer',
+        'CONFIG': {
+            "hosts": [("redis", 6379)],
+        },
+    },
+}
 
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
@@ -126,3 +138,11 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static')
 ]
+
+
+# Email Settings
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'aragonderrick23@gmail.com'
+EMAIL_HOST_PASSWORD = 'CSUC_pass23'
+EMAIL_PORT = '587'
+EMAIL_USE_TLS = True
