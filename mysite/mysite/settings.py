@@ -26,7 +26,7 @@ SECRET_KEY = '%rie=6^xmiad#w_0n-5(st$1e^covdx_9cgg9b2u#&s=4esd5c'
 # Security Warning: dont run with debug turned on
 DEBUG = True
 
-ALLOWED_HOSTS = ['*', '10.0.0.72']
+ALLOWED_HOSTS = ['*', '10.0.0.72', '35.206.81.144']
 
 LOGIN_REDIRECT_URL="/"
 LOGIN_URL="/login/"
