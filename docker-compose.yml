@@ -6,12 +6,11 @@ services:
     build: .
     volumes:
        - .:/code
-    links:
-       - redis:redis
     expose:
        - 8000
+    links:
+       - redis:redis
     user: "1001:1002" #system dependent
-
    #  command: python /code/mysite/manage.py runserver 0.0.0.0:8000
     command: bash -c "pip3 install -r requirements.txt && python /code/mysite/manage.py migrate && python /code/mysite/manage.py runserver 0.0.0.0:8000"
 
