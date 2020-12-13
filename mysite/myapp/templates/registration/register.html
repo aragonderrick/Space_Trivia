@@ -8,16 +8,16 @@
         <br>
         <br>
         <h3 class="text-center">Commander Registration</h3>
-        <form action="/register/" method="post">
+        <form action="/register/" method="post" style="color: white;">
             {% csrf_token %} 
             {{ form.errors }}
-            <label class="labelRegistration">{{ form.username.label_tag }}</label>
+            <label style="color: white;">username</label>
             {{ form.username }}
-            <label class="labelRegistration">{{ form.email.label_tag }}</label>
+            <label style="color: white;">email</label>
             {{ form.email }}
-            <label class="labelRegistration"> {{ form.password1.label_tag }}</label>
+            <label style="color: white;">password</label>
             {{ form.password1 }}
-            <label  class="labelRegistration"> {{ form.password2.label_tag }}</label>
+            <label style="color: white;">confirm password</label>
             {{ form.password2 }}
             <input style="border-radius: 5px;" type="submit" class="button expanded" value="Register"/>
         </form>

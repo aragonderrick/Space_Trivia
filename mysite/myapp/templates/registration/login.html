@@ -11,9 +11,9 @@
         <form action="/login/" method="post">
             {% csrf_token %}
             {{ form.errors }}
-            <label class="labelRegistration">{{ form.username.label_tag }}</label>
+            <label style="color: white;">username</label>
             {{ form.username }}
-            <label class="labelRegistration">{{ form.password.label_tag }}</label>
+            <label style="color: white;">password</label>
             {{ form.password }}
             <input style="border-radius: 5px;" type="submit" class="button expanded" value="Login"/>
             <a href="/register/" style="border-radius: 5px;" class="secondary button expanded">Register</a>
