@@ -142,7 +142,7 @@ STATICFILES_DIRS = [
 
 # Email Settings
 EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_HOST_USER = 'aragonderrick23@gmail.com'
-EMAIL_HOST_PASSWORD = 'CSUC_pass23'
+EMAIL_HOST_USER = '*****'
+EMAIL_HOST_PASSWORD = '*****'
 EMAIL_PORT = '587'
 EMAIL_USE_TLS = True
